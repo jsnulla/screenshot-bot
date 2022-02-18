@@ -50,9 +50,11 @@ const main = async () => {
     defaultViewport: resolutions[resolution]
   });
   const page = await browser.newPage();
-  await page.goto(imageUrl);
+  await page.goto(imageUrl, {
+    waitUntil: 'networkidle0',
+  });
 
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(10000);
   await generateOutput(page, format, fileName);
 
   await browser.close();
